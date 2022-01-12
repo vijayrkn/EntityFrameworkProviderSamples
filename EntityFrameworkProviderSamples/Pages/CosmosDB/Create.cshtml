@@ -1,0 +1,54 @@
+﻿@page
+@model EntityFrameworkProviderSamples.Pages.CosmosDB.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Order.CustomerName" class="control-label"></label>
+                <input asp-for="Order.CustomerName" class="form-control" />
+                <span asp-validation-for="Order.CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.Street" class="control-label"></label>
+                <input asp-for="Order.Street" class="form-control" />
+                <span asp-validation-for="Order.Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.City" class="control-label"></label>
+                <input asp-for="Order.City" class="form-control" />
+                <span asp-validation-for="Order.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.State" class="control-label"></label>
+                <input asp-for="Order.State" class="form-control" />
+                <span asp-validation-for="Order.State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.ZipCode" class="control-label"></label>
+                <input asp-for="Order.ZipCode" class="form-control" />
+                <span asp-validation-for="Order.ZipCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

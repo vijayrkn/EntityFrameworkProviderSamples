@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "postgresql1": {
+      "containerPorts": "5432:5432",
+      "secretStore": "LocalSecretsFile",
+      "containerName": "postgresql",
+      "containerImage": "postgres",
+      "type": "postgresql.container",
+      "connectionId": "PostgresDataContext"
+    },
+    "cosmosdb1": {
+      "containerHostIPAddress": "192.168.145.210",
+      "containerSSLCertificatePath": "/tmp/cosmos/appdata/default.sslcert.pfx",
+      "containerSSLCertificateKey": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+      "containerPorts": "8081:8081,10251:10251,10252:10252,10253:10253,10254:10254",
+      "secretStore": "LocalSecretsFile",
+      "containerName": "cosmosdb",
+      "containerImage": "mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator",
+      "type": "cosmosdb.container",
+      "connectionId": "CosmosDBDataContext"
+    },
+    "mssql1": {
+      "secretStore": "LocalSecretsFile",
+      "type": "mssql.local",
+      "connectionId": "ConnectionStrings:MSSQLDataContext"
+    }
+  }
+}

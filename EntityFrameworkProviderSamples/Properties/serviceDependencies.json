@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets"
+    },
+    "postgresql1": {
+      "type": "postgresql",
+      "connectionId": "PostgresDataContext"
+    },
+    "cosmosdb1": {
+      "type": "cosmosdb",
+      "connectionId": "CosmosDBDataContext"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:MSSQLDataContext"
+    }
+  }
+}
