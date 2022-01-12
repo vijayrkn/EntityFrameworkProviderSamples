@@ -1,6 +1,7 @@
 ﻿#nullable disable
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace EntityFrameworkProviderSamples.Data
 {
@@ -10,6 +11,7 @@ namespace EntityFrameworkProviderSamples.Data
         {
             var builder = new DbContextOptionsBuilder<T>(options);
             builder.UseLoggerFactory(new LoggerFactory());
+            builder.ConfigureWarnings(x => x.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning));
             ConstructorInfo c = typeof(T).GetConstructor(new[] { typeof(DbContextOptions<T>) });
             using T context = (T)c.Invoke(new object[] { builder.Options });
             if (await context.Database.EnsureCreatedAsync())

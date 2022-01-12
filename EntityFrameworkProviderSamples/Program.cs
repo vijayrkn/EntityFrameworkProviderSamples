@@ -30,6 +30,8 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    // Initialize the Databases
+
     await using var scope = app.Services?.GetService<IServiceScopeFactory>()?.CreateAsyncScope();
 
     var sqlLiteOptions = scope?.ServiceProvider.GetRequiredService<DbContextOptions<SQLLiteDataContext>>();

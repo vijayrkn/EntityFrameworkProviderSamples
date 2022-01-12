@@ -1,0 +1,77 @@
+﻿@page
+@model EntityFrameworkProviderSamples.Pages.Orders.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<div>
+        <form method="post">
+            <div class="form-group">
+            @foreach( var provider in System.Enum.GetValues(typeof(EntityFrameworkProviderSamples.Data.EntityFramework.Providers)) )
+            {
+                <input type="radio" asp-for="Provider" value="@(provider)" />@provider <br />
+            }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="List" class="btn btn-primary" />
+            </div>
+        </form>
+</div>
+
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].ZipCode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Order) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.TrackingId" asp-route-Provider="@Model.Provider" >Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.TrackingId" asp-route-Provider="@Model.Provider">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.TrackingId" asp-route-Provider="@Model.Provider">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
