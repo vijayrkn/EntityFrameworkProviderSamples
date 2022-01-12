@@ -26,13 +26,18 @@ namespace EntityFrameworkProviderSamples.Pages.Orders
             _sqlLiteDataContext = sqlLiteDataContext;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(EntityFramework.Providers? provider)
         {
+            if (provider != null)
+            {
+                Provider = provider;
+            }
+
             return Page();
         }
 
         [BindProperty]
-        public EntityFramework.Providers Provider { get; set; }
+        public EntityFramework.Providers? Provider { get; set; }
 
         [BindProperty]
         public Order Order { get; set; }
@@ -61,7 +66,7 @@ namespace EntityFrameworkProviderSamples.Pages.Orders
                     _postgresDataContext.Order.Add(Order);
                     context= _postgresDataContext;
                     break;
-                case EntityFramework.Providers.SQLLite:
+                case EntityFramework.Providers.SQLite:
                     _sqlLiteDataContext.Order.Add(Order);
                     context=_sqlLiteDataContext;
                     break;
@@ -71,7 +76,7 @@ namespace EntityFrameworkProviderSamples.Pages.Orders
             }
 
             await context.SaveChangesAsync();
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", new { Provider = Provider });
         }
     }
 }

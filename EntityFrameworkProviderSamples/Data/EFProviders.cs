@@ -2,6 +2,6 @@
 {
     public static class EntityFramework
     {
-        public enum Providers { CosmosDB, MSSQL, PostgreSQL, SQLLite };
+        public enum Providers { CosmosDB, MSSQL, PostgreSQL, SQLite };
     }
 }

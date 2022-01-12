@@ -34,15 +34,16 @@ namespace EntityFrameworkProviderSamples.Pages.Orders
         public Order Order { get; set; }
 
         [BindProperty]
-        public EntityFramework.Providers Provider { get; set; }
+        public EntityFramework.Providers? Provider { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id, EntityFramework.Providers? provider)
         {
-            if (id == null)
+            if (id == null || provider == null)
             {
                 return NotFound();
             }
 
+            Provider = provider;
             switch (provider)
             {
                 case EntityFramework.Providers.CosmosDB:
@@ -54,7 +55,7 @@ namespace EntityFrameworkProviderSamples.Pages.Orders
                 case EntityFramework.Providers.PostgreSQL:
                     Order = await _postgresDataContext.Order.FirstOrDefaultAsync(m => m.TrackingId == id);
                     break;
-                case EntityFramework.Providers.SQLLite:
+                case EntityFramework.Providers.SQLite:
                     Order = await _sqlLiteDataContext.Order.FirstOrDefaultAsync(m => m.TrackingId == id);
                     break;
                 default:
@@ -103,7 +104,7 @@ namespace EntityFrameworkProviderSamples.Pages.Orders
                         _postgresDataContext.Order.Remove(Order);
                     }
                     break;
-                case EntityFramework.Providers.SQLLite:
+                case EntityFramework.Providers.SQLite:
                     dbContext = _sqlLiteDataContext;
                     Order = await _sqlLiteDataContext.Order.FindAsync(id);
                     if (Order != null)
@@ -117,7 +118,7 @@ namespace EntityFrameworkProviderSamples.Pages.Orders
             }
 
             await dbContext.SaveChangesAsync();
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", new { Provider = Provider });
         }
     }
 }

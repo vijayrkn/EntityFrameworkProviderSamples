@@ -27,12 +27,17 @@ namespace EntityFrameworkProviderSamples.Pages.Orders
         }
 
         [BindProperty]
-        public EntityFramework.Providers Provider { get; set; }
+        public EntityFramework.Providers? Provider { get; set; } = EntityFramework.Providers.MSSQL;
 
         public IList<Order> Order { get;set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(EntityFramework.Providers? provider)
         {
+            if (provider != null)
+            {
+                Provider = provider;
+            }
+
             await GetProviderRelevantContentAsync();
         }
 
@@ -54,7 +59,7 @@ namespace EntityFrameworkProviderSamples.Pages.Orders
                 case EntityFramework.Providers.PostgreSQL:
                     Order = await _postgresDataContext.Order.ToListAsync();
                     break;
-                case EntityFramework.Providers.SQLLite:
+                case EntityFramework.Providers.SQLite:
                     Order = await _sqlLiteDataContext.Order.ToListAsync();
                     break;
                 default:
