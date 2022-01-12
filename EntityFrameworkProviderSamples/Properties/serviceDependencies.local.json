@@ -9,7 +9,7 @@
       "containerName": "postgresql",
       "containerImage": "postgres",
       "type": "postgresql.container",
-      "connectionId": "PostgresDataContext"
+      "connectionId": "ConnectionStrings:PostgresDataContext"
     },
     "cosmosdb1": {
       "containerHostIPAddress": "192.168.145.210",
@@ -20,7 +20,7 @@
       "containerName": "cosmosdb",
       "containerImage": "mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator",
       "type": "cosmosdb.container",
-      "connectionId": "CosmosDBDataContext"
+      "connectionId": "ConnectionStrings:CosmosDBDataContext"
     },
     "mssql1": {
       "secretStore": "LocalSecretsFile",

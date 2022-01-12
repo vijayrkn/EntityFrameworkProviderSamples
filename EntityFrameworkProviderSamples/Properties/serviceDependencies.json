@@ -5,11 +5,11 @@
     },
     "postgresql1": {
       "type": "postgresql",
-      "connectionId": "PostgresDataContext"
+      "connectionId": "ConnectionStrings:PostgresDataContext"
     },
     "cosmosdb1": {
       "type": "cosmosdb",
-      "connectionId": "CosmosDBDataContext"
+      "connectionId": "ConnectionStrings:CosmosDBDataContext"
     },
     "mssql1": {
       "type": "mssql",
