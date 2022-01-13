@@ -33,18 +33,19 @@ if (app.Environment.IsDevelopment())
     // Initialize the Databases
 
     await using var scope = app.Services?.GetService<IServiceScopeFactory>()?.CreateAsyncScope();
-
+    
+    var loggerFactory = new LoggerFactory();
     var sqlLiteOptions = scope?.ServiceProvider.GetRequiredService<DbContextOptions<SQLLiteDataContext>>();
-    await DataContextUtility.EnsureDbCreatedAndSeedAsync<SQLLiteDataContext>(sqlLiteOptions);
+    await DataContextUtility.EnsureDbCreatedAndSeedAsync<SQLLiteDataContext>(sqlLiteOptions, loggerFactory);
 
     var msSQLOptions = scope?.ServiceProvider.GetRequiredService<DbContextOptions<MSSQLDataContext>>();
-    await DataContextUtility.EnsureDbCreatedAndSeedAsync<MSSQLDataContext>(msSQLOptions);
+    await DataContextUtility.EnsureDbCreatedAndSeedAsync<MSSQLDataContext>(msSQLOptions, loggerFactory);
 
     var cosmosDBOptions = scope?.ServiceProvider.GetRequiredService<DbContextOptions<CosmosDBDataContext>>();
-    await DataContextUtility.EnsureDbCreatedAndSeedAsync<CosmosDBDataContext>(cosmosDBOptions);
+    await DataContextUtility.EnsureDbCreatedAndSeedAsync<CosmosDBDataContext>(cosmosDBOptions, loggerFactory);
 
     var postgresOptions = scope?.ServiceProvider.GetRequiredService<DbContextOptions<PostgresDataContext>>();
-    await DataContextUtility.EnsureDbCreatedAndSeedAsync<PostgresDataContext>(postgresOptions);
+    await DataContextUtility.EnsureDbCreatedAndSeedAsync<PostgresDataContext>(postgresOptions, loggerFactory);
 }
 
 

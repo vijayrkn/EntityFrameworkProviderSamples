@@ -2,13 +2,14 @@
 
 namespace EntityFrameworkProviderSamples.Models
 {
+    public enum TShirtSize { XS, S, M, L, XL, XXL }
     public class Order
     {
         [Key]
         public Guid TrackingId { get; set; } = Guid.NewGuid();
 
         [Required]
-        public string? CustomerName { get; set; }
+        public string? EmployeeName { get; set; }
 
         [Required]
         public string? Street { get; set; }
@@ -23,5 +24,8 @@ namespace EntityFrameworkProviderSamples.Models
         [Required]
         [Range(0, 99999)]
         public int? ZipCode { get; set; }
+
+        [Display(Name = "T-Shirt Size")]
+        public TShirtSize? ShirtSize { get; set; }
     }
 }
