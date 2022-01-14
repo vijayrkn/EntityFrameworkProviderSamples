@@ -16,9 +16,6 @@ namespace EntityFrameworkProviderSamples.Data
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.ConfigureWarnings(x => x.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning));
-
         public DbSet<EntityFrameworkProviderSamples.Models.Order> Order { get; set; }
     }
 }

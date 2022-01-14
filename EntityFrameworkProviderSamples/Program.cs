@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using EntityFrameworkProviderSamples.Data;
+﻿using EntityFrameworkProviderSamples.Data;
 using Microsoft.Azure.Cosmos;
-using System.Net;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<CosmosDBDataContext>(options =>
-    options.UseCosmos(builder.Configuration.GetConnectionString("CosmosDBDataContext"), databaseName: "OrdersDB",
+    options.ConfigureWarnings(x => x.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning))
+           .UseCosmos(builder.Configuration.GetConnectionString("CosmosDBDataContext"), databaseName: "OrdersDB",
             options =>
                 {
                     options.ConnectionMode(ConnectionMode.Direct);
