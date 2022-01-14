@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EntityFrameworkProviderSamples.Models;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace EntityFrameworkProviderSamples.Data
 {
@@ -14,6 +15,9 @@ namespace EntityFrameworkProviderSamples.Data
             : base(options)
         {
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.ConfigureWarnings(x => x.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning));
 
         public DbSet<EntityFrameworkProviderSamples.Models.Order> Order { get; set; }
     }

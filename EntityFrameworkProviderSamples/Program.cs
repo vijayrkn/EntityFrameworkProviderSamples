@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using EntityFrameworkProviderSamples.Data;
 using Microsoft.Azure.Cosmos;
 using System.Net;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +12,11 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<CosmosDBDataContext>(options =>
     options.UseCosmos(builder.Configuration.GetConnectionString("CosmosDBDataContext"), databaseName: "OrdersDB",
-    options =>
-    {
-        options.ConnectionMode(ConnectionMode.Direct);
-        options.WebProxy(new WebProxy());
-    }));
+            options =>
+                {
+                    options.ConnectionMode(ConnectionMode.Direct);
+                    options.WebProxy(new WebProxy());
+                }));
 
 builder.Services.AddDbContext<PostgresDataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresDataContext")));
@@ -34,18 +35,17 @@ if (app.Environment.IsDevelopment())
 
     await using var scope = app.Services?.GetService<IServiceScopeFactory>()?.CreateAsyncScope();
     
-    var loggerFactory = new LoggerFactory();
     var sqlLiteOptions = scope?.ServiceProvider.GetRequiredService<DbContextOptions<SQLLiteDataContext>>();
-    await DataContextUtility.EnsureDbCreatedAndSeedAsync<SQLLiteDataContext>(sqlLiteOptions, loggerFactory);
+    await DataContextUtility.EnsureDbCreatedAndSeedAsync<SQLLiteDataContext>(sqlLiteOptions);
 
     var msSQLOptions = scope?.ServiceProvider.GetRequiredService<DbContextOptions<MSSQLDataContext>>();
-    await DataContextUtility.EnsureDbCreatedAndSeedAsync<MSSQLDataContext>(msSQLOptions, loggerFactory);
+    await DataContextUtility.EnsureDbCreatedAndSeedAsync<MSSQLDataContext>(msSQLOptions);
 
     var cosmosDBOptions = scope?.ServiceProvider.GetRequiredService<DbContextOptions<CosmosDBDataContext>>();
-    await DataContextUtility.EnsureDbCreatedAndSeedAsync<CosmosDBDataContext>(cosmosDBOptions, loggerFactory);
+    await DataContextUtility.EnsureDbCreatedAndSeedAsync<CosmosDBDataContext>(cosmosDBOptions);
 
     var postgresOptions = scope?.ServiceProvider.GetRequiredService<DbContextOptions<PostgresDataContext>>();
-    await DataContextUtility.EnsureDbCreatedAndSeedAsync<PostgresDataContext>(postgresOptions, loggerFactory);
+    await DataContextUtility.EnsureDbCreatedAndSeedAsync<PostgresDataContext>(postgresOptions);
 }
 
 
