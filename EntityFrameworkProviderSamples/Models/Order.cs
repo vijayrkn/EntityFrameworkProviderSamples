@@ -25,6 +25,7 @@ namespace EntityFrameworkProviderSamples.Models
         [Range(0, 99999)]
         public int? ZipCode { get; set; }
 
+        [Required]
         [Display(Name = "T-Shirt Size")]
         public TShirtSize? ShirtSize { get; set; }
     }
